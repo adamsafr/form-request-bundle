@@ -14,7 +14,7 @@ class HttpRequestWrapper
     /**
      * @var null|Request
      */
-    private $httpRequest;
+    protected $httpRequest;
 
 
     public function setHttpRequest(Request $httpRequest): void

@@ -9,14 +9,14 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 class BaseFormRequest extends HttpRequestWrapper
 {
     /**
+     * @var bool
+     */
+    protected $decodeJsonBody = false;
+
+    /**
      * @var null|ParameterBag
      */
     private $json;
-
-    /**
-     * @var bool
-     */
-    private $decodeJsonBody = false;
 
 
     public function setDecodeJsonBody(bool $decodeJsonBody): void
