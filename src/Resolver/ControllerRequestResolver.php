@@ -86,10 +86,8 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
 
     private function prepareValidationGroups(FormRequest $form): ?Assert\GroupSequence
     {
-        if (is_array($form->validationGroups())) {
-            return new Assert\GroupSequence($form->validationGroups());
-        }
+        $groups = $form->validationGroups();
 
-        return null;
+        return !empty($groups) ? new Assert\GroupSequence($groups) : null;
     }
 }

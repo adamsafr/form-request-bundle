@@ -21,8 +21,8 @@ class FormRequest extends BaseFormRequest
         return $this->all();
     }
 
-    public function validationGroups(): ?array
+    public function validationGroups(): array
     {
-        return null;
+        return [];
     }
 }
