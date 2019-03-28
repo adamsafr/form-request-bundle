@@ -9,52 +9,52 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ServerBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class SymfonyRequestWrapper
+class HttpRequestWrapper
 {
     /**
      * @var null|Request
      */
-    private $symfonyRequest;
+    private $httpRequest;
 
 
-    public function setSymfonyRequest(Request $request): void
+    public function setHttpRequest(Request $httpRequest): void
     {
-        $this->symfonyRequest = $request;
+        $this->httpRequest = $httpRequest;
     }
 
     public function attributes(): ParameterBag
     {
-        return $this->symfonyRequest->attributes;
+        return $this->httpRequest->attributes;
     }
 
     public function request(): ParameterBag
     {
-        return $this->symfonyRequest->request;
+        return $this->httpRequest->request;
     }
 
     public function query(): ParameterBag
     {
-        return $this->symfonyRequest->query;
+        return $this->httpRequest->query;
     }
 
     public function server(): ServerBag
     {
-        return $this->symfonyRequest->server;
+        return $this->httpRequest->server;
     }
 
     public function files(): FileBag
     {
-        return $this->symfonyRequest->files;
+        return $this->httpRequest->files;
     }
 
     public function cookies(): ParameterBag
     {
-        return $this->symfonyRequest->cookies;
+        return $this->httpRequest->cookies;
     }
 
     public function headers(): HeaderBag
     {
-        return $this->symfonyRequest->headers;
+        return $this->httpRequest->headers;
     }
 
     /**
@@ -64,62 +64,62 @@ class SymfonyRequestWrapper
      */
     public function get(string $key, $default = null)
     {
-        return $this->symfonyRequest->get($key, $default);
+        return $this->httpRequest->get($key, $default);
     }
 
     public function getSession(): ?SessionInterface
     {
-        return $this->symfonyRequest->getSession();
+        return $this->httpRequest->getSession();
     }
 
     public function hasPreviousSession(): bool
     {
-        return $this->symfonyRequest->hasPreviousSession();
+        return $this->httpRequest->hasPreviousSession();
     }
 
     public function hasSession(): bool
     {
-        return $this->symfonyRequest->hasSession();
+        return $this->httpRequest->hasSession();
     }
 
     public function setSession(SessionInterface $session): void
     {
-        $this->symfonyRequest->setSession($session);
+        $this->httpRequest->setSession($session);
     }
 
     public function getClientIps(): array
     {
-        return $this->symfonyRequest->getClientIps();
+        return $this->httpRequest->getClientIps();
     }
 
     public function getClientIp(): ?string
     {
-        return $this->symfonyRequest->getClientIp();
+        return $this->httpRequest->getClientIp();
     }
 
     public function getScriptName(): string
     {
-        return $this->symfonyRequest->getScriptName();
+        return $this->httpRequest->getScriptName();
     }
 
     public function getPathInfo(): string
     {
-        return $this->symfonyRequest->getPathInfo();
+        return $this->httpRequest->getPathInfo();
     }
 
     public function getBasePath(): string
     {
-        return $this->symfonyRequest->getBasePath();
+        return $this->httpRequest->getBasePath();
     }
 
     public function getBaseUrl(): string
     {
-        return $this->symfonyRequest->getBaseUrl();
+        return $this->httpRequest->getBaseUrl();
     }
 
     public function getScheme(): string
     {
-        return $this->symfonyRequest->getScheme();
+        return $this->httpRequest->getScheme();
     }
 
     /**
@@ -127,92 +127,92 @@ class SymfonyRequestWrapper
      */
     public function getPort()
     {
-        return $this->symfonyRequest->getPort();
+        return $this->httpRequest->getPort();
     }
 
     public function getUser(): ?string
     {
-        return $this->symfonyRequest->getUser();
+        return $this->httpRequest->getUser();
     }
 
     public function getPassword(): ?string
     {
-        return $this->symfonyRequest->getPassword();
+        return $this->httpRequest->getPassword();
     }
 
     public function getUserInfo(): string
     {
-        return $this->symfonyRequest->getUserInfo();
+        return $this->httpRequest->getUserInfo();
     }
 
     public function getHttpHost(): string
     {
-        return $this->symfonyRequest->getHttpHost();
+        return $this->httpRequest->getHttpHost();
     }
 
     public function getRequestUri(): string
     {
-        return $this->symfonyRequest->getRequestUri();
+        return $this->httpRequest->getRequestUri();
     }
 
     public function getSchemeAndHttpHost(): string
     {
-        return $this->symfonyRequest->getSchemeAndHttpHost();
+        return $this->httpRequest->getSchemeAndHttpHost();
     }
 
     public function getUri(): string
     {
-        return $this->symfonyRequest->getUri();
+        return $this->httpRequest->getUri();
     }
 
     public function getUriForPath(string $path): string
     {
-        return $this->symfonyRequest->getUriForPath($path);
+        return $this->httpRequest->getUriForPath($path);
     }
 
     public function getRelativeUriForPath(string $path): string
     {
-        return $this->symfonyRequest->getRelativeUriForPath($path);
+        return $this->httpRequest->getRelativeUriForPath($path);
     }
 
     public function getQueryString(): ?string
     {
-        return $this->symfonyRequest->getQueryString();
+        return $this->httpRequest->getQueryString();
     }
 
     public function isSecure(): bool
     {
-        return $this->symfonyRequest->isSecure();
+        return $this->httpRequest->isSecure();
     }
 
     public function getHost(): string
     {
-        return $this->symfonyRequest->getHost();
+        return $this->httpRequest->getHost();
     }
 
     public function setMethod(string $method): void
     {
-        $this->symfonyRequest->setMethod($method);
+        $this->httpRequest->setMethod($method);
     }
 
     public function getMethod(): string
     {
-        return $this->symfonyRequest->getMethod();
+        return $this->httpRequest->getMethod();
     }
 
     public function getRealMethod(): string
     {
-        return $this->symfonyRequest->getRealMethod();
+        return $this->httpRequest->getRealMethod();
     }
 
     public function getMimeType(string $format): ?string
     {
-        return $this->symfonyRequest->getMimeType($format);
+        return $this->httpRequest->getMimeType($format);
     }
 
     public function getFormat(string $mimeType): ?string
     {
-        return $this->symfonyRequest->getFormat($mimeType);
+        return $this->httpRequest->getFormat($mimeType);
     }
 
     /**
@@ -221,67 +221,67 @@ class SymfonyRequestWrapper
      */
     public function setFormat(string $format, $mimeTypes): void
     {
-        $this->symfonyRequest->setFormat($format, $mimeTypes);
+        $this->httpRequest->setFormat($format, $mimeTypes);
     }
 
     public function getRequestFormat(?string $default = 'html'): string
     {
-        return $this->symfonyRequest->getRequestFormat($default);
+        return $this->httpRequest->getRequestFormat($default);
     }
 
     public function setRequestFormat(string $format): void
     {
-        $this->symfonyRequest->setRequestFormat($format);
+        $this->httpRequest->setRequestFormat($format);
     }
 
     public function getContentType(): ?string
     {
-        return $this->symfonyRequest->getContentType();
+        return $this->httpRequest->getContentType();
     }
 
     public function setDefaultLocale(string $locale): void
     {
-        $this->symfonyRequest->setDefaultLocale($locale);
+        $this->httpRequest->setDefaultLocale($locale);
     }
 
     public function getDefaultLocale(): string
     {
-        return $this->symfonyRequest->getDefaultLocale();
+        return $this->httpRequest->getDefaultLocale();
     }
 
     public function setLocale(string $locale): void
     {
-        $this->symfonyRequest->setLocale($locale);
+        $this->httpRequest->setLocale($locale);
     }
 
     public function getLocale(): string
     {
-        return $this->symfonyRequest->getLocale();
+        return $this->httpRequest->getLocale();
     }
 
     public function isMethod(string $method): bool
     {
-        return $this->symfonyRequest->isMethod($method);
+        return $this->httpRequest->isMethod($method);
     }
 
     public function isMethodSafe(): bool
     {
-        return $this->symfonyRequest->isMethodSafe();
+        return $this->httpRequest->isMethodSafe();
     }
 
     public function isMethodIdempotent(): bool
     {
-        return $this->symfonyRequest->isMethodIdempotent();
+        return $this->httpRequest->isMethodIdempotent();
     }
 
     public function isMethodCacheable(): bool
     {
-        return $this->symfonyRequest->isMethodCacheable();
+        return $this->httpRequest->isMethodCacheable();
     }
 
     public function getProtocolVersion(): string
     {
-        return $this->symfonyRequest->getProtocolVersion();
+        return $this->httpRequest->getProtocolVersion();
     }
 
     /**
@@ -293,51 +293,51 @@ class SymfonyRequestWrapper
      */
     public function getContent($asResource = false)
     {
-        return $this->symfonyRequest->getContent($asResource);
+        return $this->httpRequest->getContent($asResource);
     }
 
     public function getETags(): array
     {
-        return $this->symfonyRequest->getETags();
+        return $this->httpRequest->getETags();
     }
 
     public function isNoCache(): bool
     {
-        return $this->symfonyRequest->isNoCache();
+        return $this->httpRequest->isNoCache();
     }
 
     public function getPreferredLanguage(?array $locales = null): ?string
     {
-        return $this->symfonyRequest->getPreferredLanguage($locales);
+        return $this->httpRequest->getPreferredLanguage($locales);
     }
 
     public function getLanguages(): array
     {
-        return $this->symfonyRequest->getLanguages();
+        return $this->httpRequest->getLanguages();
     }
 
     public function getCharsets(): array
     {
-        return $this->symfonyRequest->getCharsets();
+        return $this->httpRequest->getCharsets();
     }
 
     public function getEncodings(): array
     {
-        return $this->symfonyRequest->getEncodings();
+        return $this->httpRequest->getEncodings();
     }
 
     public function getAcceptableContentTypes(): array
     {
-        return $this->symfonyRequest->getAcceptableContentTypes();
+        return $this->httpRequest->getAcceptableContentTypes();
     }
 
     public function isXmlHttpRequest(): bool
     {
-        return $this->symfonyRequest->isXmlHttpRequest();
+        return $this->httpRequest->isXmlHttpRequest();
     }
 
     public function isFromTrustedProxy(): bool
     {
-        return $this->symfonyRequest->isFromTrustedProxy();
+        return $this->httpRequest->isFromTrustedProxy();
     }
 }

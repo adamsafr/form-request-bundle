@@ -42,7 +42,7 @@ class ControllerRequestResolverTest extends TestCase
         $argument = new ArgumentMetadata('testRequest', TestRequest::class, false, false, null);
 
         $testRequest = new TestRequest();
-        $testRequest->setSymfonyRequest($request);
+        $testRequest->setHttpRequest($request);
 
         $this->assertTrue($resolver->supports($request, $argument));
         $this->assertYieldEquals([$testRequest], $resolver->resolve($request, $argument));

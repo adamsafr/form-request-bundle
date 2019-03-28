@@ -6,7 +6,7 @@ use Adamsafr\FormRequestBundle\Helper\Json;
 use Adamsafr\FormRequestBundle\Helper\Str;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class BaseFormRequest extends SymfonyRequestWrapper
+class BaseFormRequest extends HttpRequestWrapper
 {
     /**
      * @var null|ParameterBag

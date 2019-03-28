@@ -52,7 +52,7 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
             throw new \LogicException(sprintf('$form is not instance of %s', FormRequest::class));
         }
 
-        $form->setSymfonyRequest($request);
+        $form->setHttpRequest($request);
         $form->setDecodeJsonBody($this->decodeJsonBody);
 
         if ($this->decodeJsonBody && $form->isJson()) {
