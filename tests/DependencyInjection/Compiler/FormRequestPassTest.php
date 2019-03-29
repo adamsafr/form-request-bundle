@@ -1,6 +1,6 @@
 <?php
 
-namespace Adamsafr\FormRequestBundle\Tests\DependencyInjection;
+namespace Adamsafr\FormRequestBundle\Tests\DependencyInjection\Compiler;
 
 use Adamsafr\FormRequestBundle\DependencyInjection\Compiler\FormRequestPass;
 use Adamsafr\FormRequestBundle\Http\FormRequest;
