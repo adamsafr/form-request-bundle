@@ -59,6 +59,7 @@ namespace App\Request;
 
 use Adamsafr\FormRequestBundle\Http\FormRequest;
 use App\Service\Randomizer;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UserRequest extends FormRequest
