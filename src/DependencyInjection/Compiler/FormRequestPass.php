@@ -14,7 +14,11 @@ class FormRequestPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $driverLocator = $container->getDefinition('adamsafr_form_request.form_request_service_locator');
+        if (!$container->hasDefinition('adamsafr_form_request.form_request_service_locator')) {
+            return;
+        }
+
+        $locator = $container->getDefinition('adamsafr_form_request.form_request_service_locator');
 
         $taggedServices = $container->findTaggedServiceIds('adamsafr_form_request.form_request');
         $references = [];
@@ -27,6 +31,6 @@ class FormRequestPass implements CompilerPassInterface
             $references[$id] = new Reference($id);
         }
 
-        $driverLocator->setArguments([$references]);
+        $locator->setArguments([$references]);
     }
 }
