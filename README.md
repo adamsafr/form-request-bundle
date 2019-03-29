@@ -37,10 +37,6 @@ for Symfony 4 or add it in the `app/config/config.yml` file:
 
 ```yaml
 adamsafr_form_request:
-  request:
-    # Replaces original request object data by json body calling $request->request->replace($jsonBody).
-    # If you're using other packages (e.g. FOSRest which does this stuff) you can turn off this option.
-    replace_original_request_by_json: true
   exception_listeners:
     access_denied:
       # Sets json response of the Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
@@ -61,7 +57,7 @@ Usage
 
 namespace App\Request;
 
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use App\Service\Randomizer;
 use Symfony\Component\Validator\Constraints as Assert;
 

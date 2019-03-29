@@ -3,7 +3,7 @@
 namespace Adamsafr\FormRequestBundle\Tests\DependencyInjection;
 
 use Adamsafr\FormRequestBundle\DependencyInjection\Compiler\FormRequestPass;
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

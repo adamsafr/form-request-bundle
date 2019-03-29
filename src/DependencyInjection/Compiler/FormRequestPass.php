@@ -2,7 +2,7 @@
 
 namespace Adamsafr\FormRequestBundle\DependencyInjection\Compiler;
 
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;

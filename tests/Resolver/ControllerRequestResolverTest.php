@@ -4,7 +4,7 @@ namespace Adamsafr\FormRequestBundle\Tests\Resolver;
 
 use Adamsafr\FormRequestBundle\Exception\FormValidationException;
 use Adamsafr\FormRequestBundle\Locator\FormRequestServiceLocator;
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use Adamsafr\FormRequestBundle\Resolver\ControllerRequestResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -35,8 +35,7 @@ class ControllerRequestResolverTest extends TestCase
                     return new TestRequest();
                 },
             ]),
-            $validator,
-            false
+            $validator
         );
 
         $request = Request::create('/');
@@ -44,6 +43,7 @@ class ControllerRequestResolverTest extends TestCase
 
         $testRequest = new TestRequest();
         $testRequest->setHttpRequest($request);
+        $testRequest->setJson($testRequest->json());
 
         $this->assertTrue($resolver->supports($request, $argument));
         $this->assertYieldEquals([$testRequest], $resolver->resolve($request, $argument));
@@ -78,8 +78,7 @@ class ControllerRequestResolverTest extends TestCase
                     return new TestRequest();
                 },
             ]),
-            $validator,
-            false
+            $validator
         );
 
         $request = Request::create('/');
@@ -107,8 +106,7 @@ class ControllerRequestResolverTest extends TestCase
                     return $this->getNotAuthorizedTestRequestMock();
                 },
             ]),
-            $validator,
-            false
+            $validator
         );
 
         $request = Request::create('/');

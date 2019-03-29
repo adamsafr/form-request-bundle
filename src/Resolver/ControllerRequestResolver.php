@@ -3,7 +3,7 @@
 namespace Adamsafr\FormRequestBundle\Resolver;
 
 use Adamsafr\FormRequestBundle\Exception\FormValidationException;
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -24,25 +24,17 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
      */
     private $validator;
 
-    /**
-     * @var bool
-     */
-    private $replaceOriginalRequestByJson;
 
-
-    public function __construct(
-        ContainerInterface $locator,
-        ValidatorInterface $validator,
-        bool $replaceOriginalRequestByJson = false
-    ) {
+    public function __construct(ContainerInterface $locator, ValidatorInterface $validator)
+    {
         $this->locator = $locator;
         $this->validator = $validator;
-        $this->replaceOriginalRequestByJson = $replaceOriginalRequestByJson;
     }
 
     /**
      * {@inheritdoc}
      * @throws FormValidationException
+     * @throws AccessDeniedHttpException
      */
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
@@ -52,11 +44,7 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
             throw new \LogicException(sprintf('$form is not instance of %s', FormRequest::class));
         }
 
-        $form->setHttpRequest($request);
-
-        if ($this->replaceOriginalRequestByJson && $form->isJson()) {
-            $request->request->replace($form->json()->all());
-        }
+        $this->initializeRequest($form, $request);
 
         if (!$form->authorize()) {
             throw new AccessDeniedHttpException('Access denied.');
@@ -83,10 +71,44 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
         return (new \ReflectionClass($argument->getType()))->isSubclassOf(FormRequest::class);
     }
 
+    /**
+     * Return prepared validation groups
+     *
+     * @param FormRequest $form
+     * @return Assert\GroupSequence|null
+     */
     private function prepareValidationGroups(FormRequest $form): ?Assert\GroupSequence
     {
         $groups = $form->validationGroups();
 
         return !empty($groups) ? new Assert\GroupSequence($groups) : null;
+    }
+
+    /**
+     * Initialize the form request with data from the given request.
+     *
+     * @param FormRequest $form
+     * @param Request $current
+     * @return void
+     */
+    private function initializeRequest(FormRequest $form, Request $current): void
+    {
+        $files = $current->files->all();
+
+        $files = is_array($files) ? array_filter($files) : $files;
+
+        $newRequest = new Request();
+
+        $newRequest->initialize(
+            $current->query->all(), $current->request->all(), $current->attributes->all(),
+            $current->cookies->all(), $files, $current->server->all(), $current->getContent()
+        );
+
+        $form->setHttpRequest($newRequest);
+        $form->setJson($form->json());
+
+        if ($form->isJson()) {
+            $newRequest->request->replace($form->json()->all());
+        }
     }
 }

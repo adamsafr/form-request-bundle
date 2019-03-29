@@ -1,6 +1,6 @@
 <?php
 
-namespace Adamsafr\FormRequestBundle\Request;
+namespace Adamsafr\FormRequestBundle\Http;
 
 use Adamsafr\FormRequestBundle\Helper\Json;
 use Adamsafr\FormRequestBundle\Helper\Str;
@@ -17,6 +17,19 @@ class BaseFormRequest extends HttpRequestWrapper
     public function isJson(): bool
     {
         return Str::contains($this->headers()->get('CONTENT_TYPE'), ['/json', '+json']);
+    }
+
+    /**
+     * Set the JSON payload for the request.
+     *
+     * @param ParameterBag $json
+     * @return $this
+     */
+    public function setJson(ParameterBag $json)
+    {
+        $this->json = $json;
+
+        return $this;
     }
 
     public function json(): ParameterBag

@@ -1,6 +1,6 @@
 <?php
 
-namespace Adamsafr\FormRequestBundle\Request;
+namespace Adamsafr\FormRequestBundle\Http;
 
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\HeaderBag;

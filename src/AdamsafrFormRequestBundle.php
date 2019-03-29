@@ -3,7 +3,7 @@
 namespace Adamsafr\FormRequestBundle;
 
 use Adamsafr\FormRequestBundle\DependencyInjection\Compiler\FormRequestPass;
-use Adamsafr\FormRequestBundle\Request\FormRequest;
+use Adamsafr\FormRequestBundle\Http\FormRequest;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
