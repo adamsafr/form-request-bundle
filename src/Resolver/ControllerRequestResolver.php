@@ -38,13 +38,7 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
      */
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
-        $form = $this->locator->get($argument->getType());
-
-        if (!$form instanceof FormRequest) {
-            throw new \LogicException(sprintf('$form is not instance of %s', FormRequest::class));
-        }
-
-        $this->initializeRequest($form, $request);
+        $form = $this->initializeRequest($request, $argument);
 
         if (!$form->authorize()) {
             throw new AccessDeniedHttpException('Access denied.');
@@ -87,12 +81,18 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
     /**
      * Initialize the form request with data from the given request.
      *
-     * @param FormRequest $form
      * @param Request $current
-     * @return void
+     * @param ArgumentMetadata $argument
+     * @return FormRequest
      */
-    private function initializeRequest(FormRequest $form, Request $current): void
+    private function initializeRequest(Request $current, ArgumentMetadata $argument): FormRequest
     {
+        $form = $this->locator->get($argument->getType());
+
+        if (!$form instanceof FormRequest) {
+            throw new \LogicException(sprintf('$form is not instance of %s', FormRequest::class));
+        }
+
         $files = $current->files->all();
 
         $files = is_array($files) ? array_filter($files) : $files;
@@ -104,11 +104,13 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
             $current->cookies->all(), $files, $current->server->all(), $current->getContent()
         );
 
-        $form->setHttpRequest($newRequest);
+        $form->setRequest($newRequest);
         $form->setJson($form->json());
 
         if ($form->isJson()) {
             $newRequest->request->replace($form->json()->all());
         }
+
+        return $form;
     }
 }

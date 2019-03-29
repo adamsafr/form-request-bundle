@@ -5,18 +5,39 @@ namespace Adamsafr\FormRequestBundle\Http;
 use Adamsafr\FormRequestBundle\Helper\Json;
 use Adamsafr\FormRequestBundle\Helper\Str;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 
-class BaseFormRequest extends HttpRequestWrapper
+class BaseFormRequest
 {
+    /**
+     * @var null|Request
+     */
+    private $request;
+
     /**
      * @var null|ParameterBag
      */
     private $json;
 
 
-    public function isJson(): bool
+    /**
+     * Set request object
+     *
+     * @param Request $request
+     */
+    public function setRequest(Request $request): void
     {
-        return Str::contains($this->headers()->get('CONTENT_TYPE'), ['/json', '+json']);
+        $this->request = $request;
+    }
+
+    /**
+     * Get request object
+     *
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 
     /**
@@ -32,28 +53,53 @@ class BaseFormRequest extends HttpRequestWrapper
         return $this;
     }
 
+    /**
+     * Get the JSON payload for the request.
+     *
+     * @return ParameterBag
+     */
     public function json(): ParameterBag
     {
         if (!isset($this->json)) {
-            $this->json = new ParameterBag((array) Json::decode($this->getContent()));
+            $this->json = new ParameterBag((array) Json::decode($this->request->getContent()));
         }
 
         return $this->json;
     }
 
-    public function all(): array
+    /**
+     * Determine if the request is sending JSON.
+     *
+     * @return bool
+     */
+    public function isJson(): bool
     {
-        $input = $this->getInputSource()->all() + $this->query()->all();
-
-        return array_replace_recursive($input, $this->files()->all());
+        return Str::contains($this->request->headers->get('CONTENT_TYPE'), ['/json', '+json']);
     }
 
+    /**
+     * Get all of the input and files for the request.
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        $input = $this->getInputSource()->all() + $this->request->query->all();
+
+        return array_replace_recursive($input, $this->request->files->all());
+    }
+
+    /**
+     * Get the input source for the request.
+     *
+     * @return ParameterBag
+     */
     protected function getInputSource(): ParameterBag
     {
         if ($this->isJson()) {
             return $this->json();
         }
 
-        return $this->getRealMethod() === 'GET' ? $this->query() : $this->request();
+        return $this->request->getRealMethod() === 'GET' ? $this->request->query : $this->request->request;
     }
 }

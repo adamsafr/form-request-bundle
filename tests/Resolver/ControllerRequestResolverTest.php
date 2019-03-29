@@ -41,12 +41,12 @@ class ControllerRequestResolverTest extends TestCase
         $request = Request::create('/');
         $argument = new ArgumentMetadata('testRequest', TestRequest::class, false, false, null);
 
-        $testRequest = new TestRequest();
-        $testRequest->setHttpRequest($request);
-        $testRequest->setJson($testRequest->json());
+        $form = new TestRequest();
+        $form->setRequest($request);
+        $form->setJson($form->json());
 
         $this->assertTrue($resolver->supports($request, $argument));
-        $this->assertYieldEquals([$testRequest], $resolver->resolve($request, $argument));
+        $this->assertYieldEquals([$form], $resolver->resolve($request, $argument));
     }
 
     public function testWithBadRequestData()
@@ -84,11 +84,11 @@ class ControllerRequestResolverTest extends TestCase
         $request = Request::create('/');
         $argument = new ArgumentMetadata('testRequest', TestRequest::class, false, false, null);
 
-        $testRequest = new TestRequest();
+        $form = new TestRequest();
 
         $this->assertTrue($resolver->supports($request, $argument));
         $this->expectException(FormValidationException::class);
-        $this->assertYieldEquals([$testRequest], $resolver->resolve($request, $argument));
+        $this->assertYieldEquals([$form], $resolver->resolve($request, $argument));
     }
 
     public function testNotAuthorizedRequest()

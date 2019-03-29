@@ -91,9 +91,9 @@ class UserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return Assert\Collection
+     * @return null|Constraint|Constraint[]
      */
-    public function rules(): Assert\Collection
+    public function rules()
     {
         return new Assert\Collection([
             'fields' => [
@@ -122,9 +122,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiTestController extends AbstractController
 {
-    public function index(UserRequest $request)
+    public function index(UserRequest $form)
     {
-    
+        $email = $form->getRequest()->request->get('email');
     }
 }
 ```
