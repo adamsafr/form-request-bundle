@@ -38,9 +38,9 @@ for Symfony 4 or add it in the `app/config/config.yml` file:
 ```yaml
 adamsafr_form_request:
   request:
-    # Decodes json body and replaces your request data.
-    # If you're using other packages (e.g. FOSRest) you can turn this option off.
-    decode_json_body: true
+    # Replaces original request object data by json body calling $request->request->replace($jsonBody).
+    # If you're using other packages (e.g. FOSRest which does this stuff) you can turn off this option.
+    replace_original_request_by_json: true
   exception_listeners:
     access_denied:
       # Sets json response of the Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException

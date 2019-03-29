@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('request')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->booleanNode('decode_json_body')
+                        ->booleanNode('replace_original_request_by_json')
                             ->defaultFalse()
                             ->info('Decode json body and replace your request data. If you\'re using other packages' .
                             '(e.g. FOSRest) you can turn this option off.')

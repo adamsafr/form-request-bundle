@@ -43,7 +43,7 @@ class AdamsafrFormRequestExtensionTest extends TestCase
                 ],
             ],
             'request' => [
-                'decode_json_body' => false,
+                'replace_original_request_by_json' => false,
             ],
         ];
 
@@ -75,7 +75,7 @@ class AdamsafrFormRequestExtensionTest extends TestCase
                 ],
             ],
             'request' => [
-                'decode_json_body' => true,
+                'replace_original_request_by_json' => true,
             ],
         ];
 

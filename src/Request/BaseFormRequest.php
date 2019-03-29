@@ -9,20 +9,10 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 class BaseFormRequest extends HttpRequestWrapper
 {
     /**
-     * @var bool
-     */
-    protected $decodeJsonBody = false;
-
-    /**
      * @var null|ParameterBag
      */
     private $json;
 
-
-    public function setDecodeJsonBody(bool $decodeJsonBody): void
-    {
-        $this->decodeJsonBody = $decodeJsonBody;
-    }
 
     public function isJson(): bool
     {
@@ -47,7 +37,7 @@ class BaseFormRequest extends HttpRequestWrapper
 
     protected function getInputSource(): ParameterBag
     {
-        if ($this->decodeJsonBody && $this->isJson()) {
+        if ($this->isJson()) {
             return $this->json();
         }
 

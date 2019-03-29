@@ -27,17 +27,17 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
     /**
      * @var bool
      */
-    private $decodeJsonBody;
+    private $replaceOriginalRequestByJson;
 
 
     public function __construct(
         ContainerInterface $locator,
         ValidatorInterface $validator,
-        bool $decodeJsonBody = false
+        bool $replaceOriginalRequestByJson = false
     ) {
         $this->locator = $locator;
         $this->validator = $validator;
-        $this->decodeJsonBody = $decodeJsonBody;
+        $this->replaceOriginalRequestByJson = $replaceOriginalRequestByJson;
     }
 
     /**
@@ -53,9 +53,8 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
         }
 
         $form->setHttpRequest($request);
-        $form->setDecodeJsonBody($this->decodeJsonBody);
 
-        if ($this->decodeJsonBody && $form->isJson()) {
+        if ($this->replaceOriginalRequestByJson && $form->isJson()) {
             $request->request->replace($form->json()->all());
         }
 

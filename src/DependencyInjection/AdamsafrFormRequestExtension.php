@@ -24,7 +24,7 @@ class AdamsafrFormRequestExtension extends Extension
         $this->loadExceptionListeners($loader, $config);
 
         $definition = $container->getDefinition('adamsafr_form_request.controller_request_resolver');
-        $definition->setArgument(2, $config['request']['decode_json_body']);
+        $definition->setArgument(2, $config['request']['replace_original_request_by_json']);
     }
 
     private function loadExceptionListeners(LoaderInterface $loader, array $config): void
