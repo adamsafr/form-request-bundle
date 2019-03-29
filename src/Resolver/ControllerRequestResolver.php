@@ -66,7 +66,7 @@ class ControllerRequestResolver implements ArgumentValueResolverInterface
     }
 
     /**
-     * Return prepared validation groups
+     * Return prepared validation groups.
      *
      * @param FormRequest $form
      * @return Assert\GroupSequence|null

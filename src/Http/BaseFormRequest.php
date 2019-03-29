@@ -21,7 +21,7 @@ class BaseFormRequest
 
 
     /**
-     * Set request object
+     * Set request object.
      *
      * @param Request $request
      */
@@ -31,7 +31,7 @@ class BaseFormRequest
     }
 
     /**
-     * Get request object
+     * Get request object.
      *
      * @return Request
      */
@@ -91,7 +91,7 @@ class BaseFormRequest
 
     /**
      * Gets a "parameter" value from any bag.
-     * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
+     * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY.
      *
      * @param string $key
      * @param null|mixed $default

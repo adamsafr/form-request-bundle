@@ -24,6 +24,12 @@ class AdamsafrFormRequestExtension extends Extension
         $this->loadExceptionListeners($loader, $config);
     }
 
+    /**
+     * Add exception listeners according to config parameters.
+     *
+     * @param LoaderInterface $loader
+     * @param array $config
+     */
     private function loadExceptionListeners(LoaderInterface $loader, array $config): void
     {
         $listeners = $config['exception_listeners'];

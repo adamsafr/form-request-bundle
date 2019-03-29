@@ -7,6 +7,12 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ValidationErrorsTransformer
 {
+    /**
+     * Return array representation of the ConstraintViolationListInterface.
+     *
+     * @param ConstraintViolationListInterface $violations
+     * @return array
+     */
     public function transform(ConstraintViolationListInterface $violations): array
     {
         $errors = [];
@@ -23,11 +29,23 @@ class ValidationErrorsTransformer
         return $errors;
     }
 
+    /**
+     * Check if given violation has child error fields.
+     *
+     * @param ConstraintViolationInterface $violation
+     * @return bool
+     */
     private function hasNestedProperties(ConstraintViolationInterface $violation): bool
     {
         return mb_strpos($violation->getPropertyPath(), '][') !== false;
     }
 
+    /**
+     * Build tree with child error fields.
+     *
+     * @param ConstraintViolationInterface $violation
+     * @return array
+     */
     private function buildNestedErrorTree(ConstraintViolationInterface $violation): array
     {
         $paths = explode('][', $violation->getPropertyPath());
@@ -45,6 +63,12 @@ class ValidationErrorsTransformer
         return $output;
     }
 
+    /**
+     * Get field name between square braces.
+     *
+     * @param ConstraintViolationInterface $violation
+     * @return string
+     */
     private function getPreparedPropertyPath(ConstraintViolationInterface $violation): string
     {
         if (preg_match('/\[(.*?)\]/', $violation->getPropertyPath(), $result)) {
