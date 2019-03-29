@@ -90,6 +90,19 @@ class BaseFormRequest
     }
 
     /**
+     * Gets a "parameter" value from any bag.
+     * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
+     *
+     * @param string $key
+     * @param null|mixed $default
+     * @return mixed
+     */
+    public function get(string $key, $default = null)
+    {
+        return $this->request->get($key, $default);
+    }
+
+    /**
      * Get the input source for the request.
      *
      * @return ParameterBag
