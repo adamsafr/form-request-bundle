@@ -6,6 +6,7 @@ use Adamsafr\FormRequestBundle\Exception\FormValidationException;
 use Adamsafr\FormRequestBundle\Locator\FormRequestServiceLocator;
 use Adamsafr\FormRequestBundle\Request\FormRequest;
 use Adamsafr\FormRequestBundle\Resolver\ControllerRequestResolver;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class ControllerRequestResolverTest extends TestCase
 {
     public function testWithValidRequestData()
     {
-        /** @var \PHPUnit\Framework\MockObject\MockObject|RecursiveValidator $validator */
+        /** @var MockObject|RecursiveValidator $validator */
         $validator = $this
             ->getMockBuilder(RecursiveValidator::class)
             ->disableOriginalConstructor()
@@ -50,7 +51,7 @@ class ControllerRequestResolverTest extends TestCase
 
     public function testWithBadRequestData()
     {
-        /** @var \PHPUnit\Framework\MockObject\MockObject|ConstraintViolationList $constraints */
+        /** @var MockObject|ConstraintViolationList $constraints */
         $constraints = $this
             ->getMockBuilder(ConstraintViolationList::class)
             ->getMock()
@@ -60,7 +61,7 @@ class ControllerRequestResolverTest extends TestCase
             ->willReturn(1)
         ;
 
-        /** @var \PHPUnit\Framework\MockObject\MockObject|RecursiveValidator $validator */
+        /** @var MockObject|RecursiveValidator $validator */
         $validator = $this
             ->getMockBuilder(RecursiveValidator::class)
             ->disableOriginalConstructor()
@@ -93,7 +94,7 @@ class ControllerRequestResolverTest extends TestCase
 
     public function testNotAuthorizedRequest()
     {
-        /** @var \PHPUnit\Framework\MockObject\MockObject|RecursiveValidator $validator */
+        /** @var MockObject|RecursiveValidator $validator */
         $validator = $this
             ->getMockBuilder(RecursiveValidator::class)
             ->disableOriginalConstructor()
@@ -119,7 +120,7 @@ class ControllerRequestResolverTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|TestRequest
+     * @return MockObject|TestRequest
      */
     private function getNotAuthorizedTestRequestMock()
     {
