@@ -23,16 +23,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('request')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('replace_original_request_by_json')
-                            ->defaultFalse()
-                            ->info('Decode json body and replace your request data. If you\'re using other packages' .
-                            '(e.g. FOSRest) you can turn this option off.')
-                        ->end()
-                    ->end()
-                ->end()
                 ->arrayNode('exception_listeners')
                     ->addDefaultsIfNotSet()
                     ->children()

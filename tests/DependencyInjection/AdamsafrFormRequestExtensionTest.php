@@ -20,9 +20,6 @@ class AdamsafrFormRequestExtensionTest extends TestCase
         $this->assertFalse($container->has('adamsafr_form_request.access_denied_exception_listener'));
         $this->assertFalse($container->has('adamsafr_form_request.form_validation_exception_listener'));
         $this->assertFalse($container->has('adamsafr_form_request.json_decode_exception_listener'));
-
-        $definition = $container->getDefinition('adamsafr_form_request.controller_request_resolver');
-        $this->assertFalse($definition->getArgument(2));
     }
 
     public function testWithDefaultConfigFile()
@@ -42,9 +39,6 @@ class AdamsafrFormRequestExtensionTest extends TestCase
                     'enabled' => false,
                 ],
             ],
-            'request' => [
-                'replace_original_request_by_json' => false,
-            ],
         ];
 
         $extension->load([$config], $container);
@@ -52,9 +46,6 @@ class AdamsafrFormRequestExtensionTest extends TestCase
         $this->assertFalse($container->has('adamsafr_form_request.access_denied_exception_listener'));
         $this->assertFalse($container->has('adamsafr_form_request.form_validation_exception_listener'));
         $this->assertFalse($container->has('adamsafr_form_request.json_decode_exception_listener'));
-
-        $definition = $container->getDefinition('adamsafr_form_request.controller_request_resolver');
-        $this->assertFalse($definition->getArgument(2));
     }
 
     public function testConfigFileWithAllEnabledOptions()
@@ -74,9 +65,6 @@ class AdamsafrFormRequestExtensionTest extends TestCase
                     'enabled' => true,
                 ],
             ],
-            'request' => [
-                'replace_original_request_by_json' => true,
-            ],
         ];
 
         $extension->load([$config], $container);
@@ -84,8 +72,5 @@ class AdamsafrFormRequestExtensionTest extends TestCase
         $this->assertTrue($container->has('adamsafr_form_request.access_denied_exception_listener'));
         $this->assertTrue($container->has('adamsafr_form_request.form_validation_exception_listener'));
         $this->assertTrue($container->has('adamsafr_form_request.json_decode_exception_listener'));
-
-        $definition = $container->getDefinition('adamsafr_form_request.controller_request_resolver');
-        $this->assertTrue($definition->getArgument(2));
     }
 }
