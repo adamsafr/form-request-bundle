@@ -20,7 +20,7 @@ class JsonDecodeExceptionListener
             return;
         }
 
-        $response = new JsonResponse(['message' => 'Invalid json body.'], JsonResponse::HTTP_BAD_REQUEST);
+        $response = new JsonResponse(['message' => $exception->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
 
         $event->setResponse($response);
         $event->stopPropagation();
