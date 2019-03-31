@@ -13,7 +13,7 @@ class AccessDeniedExceptionListenerTest extends TestCase
     public function testConvertsExceptionResult()
     {
         $listener = new AccessDeniedExceptionListener();
-        $event = $this->createEventMock(new AccessDeniedHttpException(), true);
+        $event = $this->createEventMock(new AccessDeniedHttpException('Access denied'), true);
 
         $event->expects($this->once())
             ->method('setResponse')

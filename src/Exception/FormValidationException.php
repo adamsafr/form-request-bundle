@@ -14,7 +14,7 @@ class FormValidationException extends \Exception
 
     public function __construct(
         ConstraintViolationListInterface $violations,
-        string $message = '',
+        string $message = 'Bad request.',
         int $code = 0,
         \Throwable $previous = null
     ) {
