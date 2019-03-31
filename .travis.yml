@@ -21,6 +21,7 @@ matrix:
 
       # Test the latest stable release
     - php: 7.1
+      env: SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
     - php: 7.2
       env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
 
