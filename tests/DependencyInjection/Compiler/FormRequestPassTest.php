@@ -27,7 +27,7 @@ class FormRequestPassTest extends TestCase
     private $formRequestDefinition;
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

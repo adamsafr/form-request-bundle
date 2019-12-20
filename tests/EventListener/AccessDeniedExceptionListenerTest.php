@@ -5,6 +5,7 @@ namespace Adamsafr\FormRequestBundle\Tests\EventListener;
 use Adamsafr\FormRequestBundle\EventListener\AccessDeniedExceptionListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AccessDeniedExceptionListenerTest extends TestCase
 {
@@ -19,7 +20,7 @@ class AccessDeniedExceptionListenerTest extends TestCase
             ->method('setResponse')
             ->with($this->isInstanceOf('Symfony\Component\HttpFoundation\JsonResponse'));
 
-        $event->expects($this->once())
+        $event->expects(Kernel::VERSION >= 4.3 ? $this->never() : $this->once())
             ->method('stopPropagation');
 
         $listener->onKernelException($event);

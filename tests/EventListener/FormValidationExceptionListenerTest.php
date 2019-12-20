@@ -7,6 +7,7 @@ use Adamsafr\FormRequestBundle\Exception\FormValidationException;
 use Adamsafr\FormRequestBundle\Service\ValidationErrorsTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Kernel;
 
 class FormValidationExceptionListenerTest extends TestCase
 {
@@ -26,7 +27,7 @@ class FormValidationExceptionListenerTest extends TestCase
             ->method('setResponse')
             ->with($this->isInstanceOf('Symfony\Component\HttpFoundation\JsonResponse'));
 
-        $event->expects($this->once())
+        $event->expects(Kernel::VERSION >= 4.3 ? $this->never() : $this->once())
             ->method('stopPropagation');
 
         $listener->onKernelException($event);
