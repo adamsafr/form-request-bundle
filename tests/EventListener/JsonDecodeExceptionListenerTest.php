@@ -6,6 +6,7 @@ use Adamsafr\FormRequestBundle\EventListener\JsonDecodeExceptionListener;
 use Adamsafr\FormRequestBundle\Exception\JsonDecodeException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Kernel;
 
 class JsonDecodeExceptionListenerTest extends TestCase
 {
@@ -20,7 +21,7 @@ class JsonDecodeExceptionListenerTest extends TestCase
             ->method('setResponse')
             ->with($this->isInstanceOf('Symfony\Component\HttpFoundation\JsonResponse'));
 
-        $event->expects($this->once())
+        $event->expects(Kernel::VERSION >= 4.3 ? $this->never() : $this->once())
             ->method('stopPropagation');
 
         $listener->onKernelException($event);

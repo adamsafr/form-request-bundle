@@ -8,7 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\Context\ExecutionContextFactory;
-use Symfony\Component\Validator\Tests\Fixtures\FakeMetadataFactory;
+use Symfony\Component\Validator\Exception\NoSuchMetadataException;
+use Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
+use Symfony\Component\Validator\Mapping\MetadataInterface;
+//use Symfony\Component\Validator\Tests\Fixtures\FakeMetadataFactory;
 use Symfony\Component\Validator\Validator\RecursiveValidator;
 use Symfony\Component\Translation\IdentityTranslator;
 
@@ -89,7 +92,12 @@ class ValidationErrorsTransformerTest extends TestCase
 
         return new RecursiveValidator(
             new ExecutionContextFactory($translator),
-            new FakeMetadataFactory(),
+            new class implements MetadataFactoryInterface {
+
+                public function getMetadataFor($value) {}
+
+                public function hasMetadataFor($value) {}
+            },
             new ConstraintValidatorFactory()
         );
     }
